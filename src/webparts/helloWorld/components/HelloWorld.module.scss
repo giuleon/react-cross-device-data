@@ -7,7 +7,14 @@
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
 
-  .row {
+  .rowLight {
+    @include ms-Grid-row;
+    @include ms-fontColor-themeDark;
+    background-color: $ms-color-themeLight;
+    padding: 20px;
+  }
+
+  .rowDark {
     @include ms-Grid-row;
     @include ms-fontColor-white;
     background-color: $ms-color-themeDark;
@@ -69,6 +76,17 @@
       margin: 0 4px;
       vertical-align: top;
       display: inline-block;
+    }
+  }
+
+  .textFieldcssStyledLight {
+    label {
+      color: $ms-color-themeDark;
+    }
+  }
+  .textFieldcssStyledDark {
+    label {
+      color: $ms-color-themeLight;
     }
   }
 }
