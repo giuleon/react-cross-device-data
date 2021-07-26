@@ -40,34 +40,26 @@ const Dashboard: React.FunctionComponent<IHelloWorldProps> = (props) => {
   };
 
   const getUserData = async () => {
-    const msGraphClient = await props.context.msGraphClientFactory.getClient();
-    const result = await msGraphClient
-      .api("me/drive/special/approot:/CrossDeviceApp/settings.json?select=@microsoft.graph.downloadUrl")
-      .version("v1.0")
-      .get();
-    console.log(result);
-    const response = await fetch(`${result['@microsoft.graph.downloadUrl']}`);
-    console.log('response', response);
-    const userData: IUserData = await response.json();
-    _Theme = userData.Theme;
-    _Token = userData.Token;
-    _Preference1 = userData.Preference1;
-    console.log('userData', userData);
-    return userData;
 
-    // .then((client: MSGraphClient) => {
-    //   client
-    //     .api("me/drive/special/approot:/CrossDeviceApp/settings.json?select=@microsoft.graph.downloadUrl")
-    //     .version("v1.0")
-    //     .get(async (err, res) => {
-    //       console.log(err,res);
-    //       const response = await fetch(`${res['@microsoft.graph.downloadUrl']}`);
-    //       console.log('response', response);
-    //       const userData: IUserData = await response.json();
-    //       console.log('userData', userData);
-    //       return userData;
-    //     });
-    // });
+    try {
+      const msGraphClient = await props.context.msGraphClientFactory.getClient();
+      const result = await msGraphClient
+        .api("me/drive/special/approot:/CrossDeviceApp/settings.json?select=@microsoft.graph.downloadUrl")
+        .version("v1.0")
+        .get();
+      console.log(result);
+      const response = await fetch(`${result['@microsoft.graph.downloadUrl']}`);
+      console.log('response', response);
+      const userData: IUserData = await response.json();
+      _Theme = userData.Theme;
+      _Token = userData.Token;
+      _Preference1 = userData.Preference1;
+      console.log('userData', userData);
+      return userData;
+    } catch (error) {
+      const userData: IUserData = JSON.parse(`{"Theme": "", "Token": "", "Preference1": ""}`);
+      return userData;      
+    }
   };
 
   const loadUserData = async () => {
@@ -148,24 +140,3 @@ const Dashboard: React.FunctionComponent<IHelloWorldProps> = (props) => {
 };
 
 export default Dashboard;
-
-// export default class HelloWorld extends React.Component<IHelloWorldProps, {}> {
-//   public render(): React.ReactElement<IHelloWorldProps> {
-//     return (
-//       <div className={ styles.helloWorld }>
-//         <div className={ styles.container }>
-//           <div className={ styles.row }>
-//             <div className={ styles.column }>
-//               <span className={ styles.title }>Welcome to SharePoint!</span>
-//               <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-//               <p className={ styles.description }>{escape(this.props.description)}</p>
-//               <a href="https://aka.ms/spfx" className={ styles.button }>
-//                 <span className={ styles.label }>Learn more</span>
-//               </a>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
