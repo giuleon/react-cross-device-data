@@ -4,7 +4,7 @@
 
 This solution demonstrates how to use the OneDrive special folder **Apps** in order to save user's preferencies cross-device.
 
-[picture of the solution in action, if possible]
+![Preview](Preview.jpg)
 
 ## Used SharePoint Framework Version
 
